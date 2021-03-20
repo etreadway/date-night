@@ -193,3 +193,44 @@ function nonAlcoholic(){
             })
 
     }
+
+    
+    function typeofAlc(){
+
+        var drinkType = "vodka"
+    
+        fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${drinkType}`)       
+            .then(res => res.json())
+            .then(data => {
+                let random = getRandomInt(0, data.drinks.length - 1)
+                console.log(data.drinks[random])
+
+                let drinkID = data.drinks[random].idDrink
+                fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkID}`)
+                .then(res => res.json())
+                .then(data => {
+                    
+                    console.log(data.drinks[0])
+                        document.getElementById("nameOfDrink").innerHTML = data.drinks[0].strDrink
+                        document.getElementById("directions").innerHTML = data.drinks[0].strInstructions
+                        document.getElementById("picOfDrink").src = data.drinks[0].strDrinkThumb + '/preview'
+
+                        // ingredient list
+                        var drinkIngredients = document.getElementById('ingredientsOfDrink')
+
+                        drinkIngredients.innerHTML = null
+
+                        for( var i=1; i<=15; i++) {
+                            
+                            if(data.drinks[0]['strIngredient'+ i] != null
+                                && data.drinks[0]['strIngredient'+ i] != "") {
+                            
+                            let newListItem = document.createElement('li')
+                            newListItem.innerHTML = data.drinks[0]['strIngredient' + i]
+                            newListItem.innerHTML += ' - ' + data.drinks[0]['strMeasure' + i]
+                            drinkIngredients.append(newListItem)
+                        }}    
+                })
+            })
+
+    }
