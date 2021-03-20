@@ -1,9 +1,12 @@
-//get first pairing
+// get first pairing
 getRandomPairing()
 
+// reset button
 var resetButtonObj = document.getElementById("resetButton")
 resetButtonObj.addEventListener("click", getRandomPairing)
 
+// main ingredient search box
+var foodIngredientSearchObj = document.getElementById('mainIngredientFood')
 
 
 function getRandomPairing() {
@@ -108,7 +111,25 @@ function getRandomDessert(){
 
 
 
-  //checkbox
+/* Todo:
+    make it fill in foods
+    integrate with other filters
+    if data is null, grab random meal
+    add two word handling (uses an underscore)
+
+*/
+function foodSearchByIngredient(){
+    let mainFood = foodIngredientSearchObj.value
+    mainFood = mainFood.split(' ').join('+')
+    fetch('https://www.themealdb.com/api/json/v1/1/filter.php?i=' + mainFood)
+    .then(res => res.json())
+    .then(data => {
+        console.log(data)
+    })
+}
+
+
+  // Non-Alcololic checkbox
 
 
   //gets random number
@@ -161,3 +182,4 @@ var nonAlcCheckBox = document.getElementById("nonAlcoholic")
 
     }
   })
+
