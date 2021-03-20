@@ -6,6 +6,8 @@ var resetButtonObj = document.getElementById("resetButton")
 resetButtonObj.addEventListener("click", getRandomPairing)
 // main ingredient search box
 var foodIngredientSearchObj = document.getElementById('mainIngredientFood')
+// main alcohol ingredient
+var alcoholTypeSearchObj = document.getElementById('mainIngredientAlcohol')
 // non-alcoholic drink checkbox
 var nonAlcCheckBox = document.getElementById("nonAlcoholic")
 // filter search button
@@ -17,8 +19,11 @@ function applyFilters() {
     if(nonAlcCheckBox.checked) {
         nonAlcoholic()
     }
-    if (foodIngredientSearchObj.value != ""){
+    if (foodIngredientSearchObj.value != "") {
         foodSearchByIngredient()
+    }
+    if(alcoholTypeSearchObj.value !="") {
+        drinkSearchByIngredient()
     }
 }
 // gets all random pairing (no filters)
@@ -195,7 +200,7 @@ function nonAlcoholic(){
     }
 
     
-    function typeofAlc(){
+function typeofAlc(){
 
         var drinkType = "vodka"
     
@@ -233,4 +238,28 @@ function nonAlcoholic(){
                 })
             })
 
-    }
+}
+
+
+function drinkSearchByIngredient(){
+    /* Todo:
+    integrate with other filters
+    if data is null, grab random meal
+    */
+    let mainAlcoholType = alcoholTypeSearchObj.value
+    mainAlcoholType = mainAlcoholType.split(' ').join('+')
+    fetch('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=' + mainAlcoholType )
+    .then(res => res.json())
+    .then(data => {
+        console.log(data)
+        // get random drink id
+        let drinkID  = data.drinks[Math.floor(Math.random() * data.drinks.length)].drinkID
+        // fetch data on drink 
+        fetch('https://www.thecocktaildb.com/api/json/v1/1/lookup.php?iid=' + drinkID)
+        .then(res => res.json())
+        .then(data => {
+            handleDrinkData(data)
+        })
+    })
+    .catch(error => alert('try again'))
+}
