@@ -51,8 +51,6 @@ function getRandomDessert(){
         fetch('https://www.themealdb.com/api/json/v1/1/lookup.php?i=' + idMeal)
         .then(res => res.json())
         .then(data => {
-            console.log(data.meals[0])
-
             document.getElementById('nameOfDessert').innerHTML = data.meals[0].strMeal
             document.getElementById('picOfDessert').src = data.meals[0].strMealThumb + '/preview'
             document.getElementById('instructionsOfDessert').innerHTML = data.meals[0].strInstructions
@@ -77,12 +75,11 @@ function getRandomDrink(){
     fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
     .then(res => res.json())
     .then(data => {
-            if (data.drinks[0].strAlcoholic == "Non alcoholic"){
-                getRandomDrink()
-            }else{
-                handleDrinkData(data)
-            }
-            
+        if (data.drinks[0].strAlcoholic == "Non alcoholic"){
+            getRandomDrink()
+        }else{
+            handleDrinkData(data)
+        } 
     });
 }
 
@@ -107,7 +104,6 @@ function foodSearchByIngredient(){
     fetch('https://www.themealdb.com/api/json/v1/1/filter.php?i=' + mainFood)
     .then(res => res.json())
     .then(data => {
-        console.log(data)
         // get random meal id
         let idMeal = data.meals[Math.floor(Math.random() * data.meals.length)].idMeal
         // fetch data on random meal
@@ -129,30 +125,22 @@ function typeofAlc(){
         .then(res => res.json())
         .then(data => {
             let random = getRandomInt(0, data.drinks.length - 1)
-            console.log(data.drinks[random])
-
             let drinkID = data.drinks[random].idDrink
             fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkID}`)
             .then(res => res.json())
             .then(data => {
                 handleDrinkData(data)
             })
-        
-            
-
         })
         .catch(error => inputError())
 
 }
 
 function nonAlcoholic(){
-    
     fetch('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic')       
         .then(res => res.json())
         .then(data => {
             let random = getRandomInt(0, data.drinks.length - 1)
-            console.log(data.drinks[random])
-
             let drinkID = data.drinks[random].idDrink
             fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkID}`)
             .then(res => res.json())
@@ -160,13 +148,11 @@ function nonAlcoholic(){
                 handleDrinkData(data)
             })
         })
-
 }
 
 
 // Data Handling  
 function handleMealData(data) {
-    console.log(data.meals[0])
     // food name picture and instructions 
     document.getElementById('nameOfFood').innerHTML = data.meals[0].strMeal
     document.getElementById('picOfFood').src = data.meals[0].strMealThumb + '/preview'
@@ -188,7 +174,6 @@ function handleMealData(data) {
 
 function handleDrinkData(data){
     // drink name picture and instructions
-    console.log(data.drinks[0])
     document.getElementById("nameOfDrink").innerHTML = data.drinks[0].strDrink
     document.getElementById("directions").innerHTML = data.drinks[0].strInstructions
     document.getElementById("picOfDrink").src = data.drinks[0].strDrinkThumb + '/preview'
@@ -199,7 +184,6 @@ function handleDrinkData(data){
     drinkIngredients.innerHTML = null
 
     for( var i=1; i<=15; i++) {
-        
         if(data.drinks[0]['strIngredient'+ i] != null
         && data.drinks[0]['strIngredient'+ i] != "") {
             let newListItem = document.createElement('li')
@@ -214,7 +198,7 @@ function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min);
-  }
+}
 
 
 // Error Handling
