@@ -23,7 +23,7 @@ function applyFilters() {
         foodSearchByIngredient()
     }
     if(alcoholTypeSearchObj.value !="") {
-        drinkSearchByIngredient()
+        typeofAlc()
     }
 }
 // gets all random pairing (no filters)
@@ -201,8 +201,9 @@ function nonAlcoholic(){
 
     
 function typeofAlc(){
-
-        var drinkType = "vodka"
+        
+        let drinkType = alcoholTypeSearchObj.value
+        drinkType = drinkType.split(' ').join('+')
     
         fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${drinkType}`)       
             .then(res => res.json())
@@ -236,30 +237,11 @@ function typeofAlc(){
                             drinkIngredients.append(newListItem)
                         }}    
                 })
+            
+                
+
             })
+            .catch(error => alert('try again'))
 
 }
 
-
-function drinkSearchByIngredient(){
-    /* Todo:
-    integrate with other filters
-    if data is null, grab random meal
-    */
-    let mainAlcoholType = alcoholTypeSearchObj.value
-    mainAlcoholType = mainAlcoholType.split(' ').join('+')
-    fetch('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=' + mainAlcoholType )
-    .then(res => res.json())
-    .then(data => {
-        console.log(data)
-        // get random drink id
-        let drinkID  = data.drinks[Math.floor(Math.random() * data.drinks.length)].drinkID
-        // fetch data on drink 
-        fetch('https://www.thecocktaildb.com/api/json/v1/1/lookup.php?iid=' + drinkID)
-        .then(res => res.json())
-        .then(data => {
-            handleDrinkData(data)
-        })
-    })
-    .catch(error => alert('try again'))
-}
