@@ -22,7 +22,8 @@ function applyFilters() {
     if (foodIngredientSearchObj.value != "") {
         foodSearchByIngredient()
     }
-    if(alcoholTypeSearchObj.value !="") {
+    if(alcoholTypeSearchObj.value !="" 
+    && !nonAlcCheckBox.checked) {
         typeofAlc()
     }
 }
@@ -87,27 +88,32 @@ function getRandomDrink(){
     fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
     .then(res => res.json())
     .then(data => {
-            // drink name picture and instructions
-            console.log(data.drinks[0])
-            document.getElementById("nameOfDrink").innerHTML = data.drinks[0].strDrink
-            document.getElementById("directions").innerHTML = data.drinks[0].strInstructions
-            document.getElementById("picOfDrink").src = data.drinks[0].strDrinkThumb + '/preview'
+            if (data.drinks[0].strAlcoholic == "Non alcoholic"){
+                getRandomDrink()
+            }else{
+                // drink name picture and instructions
+                console.log(data.drinks[0])
+                document.getElementById("nameOfDrink").innerHTML = data.drinks[0].strDrink
+                document.getElementById("directions").innerHTML = data.drinks[0].strInstructions
+                document.getElementById("picOfDrink").src = data.drinks[0].strDrinkThumb + '/preview'
 
-            // ingredient list
-            var drinkIngredients = document.getElementById('ingredientsOfDrink')
+                // ingredient list
+                var drinkIngredients = document.getElementById('ingredientsOfDrink')
 
-            drinkIngredients.innerHTML = null
+                drinkIngredients.innerHTML = null
 
-            for( var i=1; i<=15; i++) {
-                
-                if(data.drinks[0]['strIngredient'+ i] != null
-                && data.drinks[0]['strIngredient'+ i] != "") {
-                    let newListItem = document.createElement('li')
-                    newListItem.innerHTML = data.drinks[0]['strIngredient' + i]
-                    newListItem.innerHTML += ' - ' + data.drinks[0]['strMeasure' + i]
-                    drinkIngredients.append(newListItem)
+                for( var i=1; i<=15; i++) {
+                    
+                    if(data.drinks[0]['strIngredient'+ i] != null
+                    && data.drinks[0]['strIngredient'+ i] != "") {
+                        let newListItem = document.createElement('li')
+                        newListItem.innerHTML = data.drinks[0]['strIngredient' + i]
+                        newListItem.innerHTML += ' - ' + data.drinks[0]['strMeasure' + i]
+                        drinkIngredients.append(newListItem)
+                    }
                 }
             }
+            
     });
 }
 
