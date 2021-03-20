@@ -119,8 +119,6 @@ function getRandomDrink(){
 
 function foodSearchByIngredient(){
     /* Todo:
-    integrate with other filters
-    if data is null, grab random meal
     */
     let mainFood = foodIngredientSearchObj.value
     mainFood = mainFood.split(' ').join('+')
@@ -137,7 +135,7 @@ function foodSearchByIngredient(){
             handleMealData(data)
         })
     })
-    .catch(error => alert('try again'))
+    .catch(error => inputError())
 }
 
 function handleMealData(data) {
@@ -247,7 +245,10 @@ function typeofAlc(){
                 
 
             })
-            .catch(error => alert('try again'))
+            .catch(error => inputError())
 
 }
 
+function inputError(){
+    alert('try again')
+}
