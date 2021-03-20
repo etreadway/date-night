@@ -1,5 +1,7 @@
-// get first pairing
+// innit site
 getRandomPairing()
+
+// ---Objects and Event Listeners---
 
 // reset button
 var resetButtonObj = document.getElementById("resetButton")
@@ -14,20 +16,9 @@ var nonAlcCheckBox = document.getElementById("nonAlcoholic")
 var filterButton = document.getElementById('filterButton')
 filterButton.addEventListener('click', applyFilters)
 
-// applies search filters
-function applyFilters() {
-    if(nonAlcCheckBox.checked) {
-        nonAlcoholic()
-    }
-    if (foodIngredientSearchObj.value != "") {
-        foodSearchByIngredient()
-    }
-    if(alcoholTypeSearchObj.value !="" 
-    && !nonAlcCheckBox.checked) {
-        typeofAlc()
-    }
-}
-// gets all random pairing (no filters)
+// ---Functions---
+
+// Random
 function getRandomPairing() {
     //food
     getRandomMeal()
@@ -36,8 +27,6 @@ function getRandomPairing() {
     //drink
     getRandomDrink()
 }
-
-
 
 function getRandomMeal(){
     fetch('https://www.themealdb.com/api/json/v1/1/random.php')
@@ -91,30 +80,25 @@ function getRandomDrink(){
             if (data.drinks[0].strAlcoholic == "Non alcoholic"){
                 getRandomDrink()
             }else{
-                // drink name picture and instructions
-                console.log(data.drinks[0])
-                document.getElementById("nameOfDrink").innerHTML = data.drinks[0].strDrink
-                document.getElementById("directions").innerHTML = data.drinks[0].strInstructions
-                document.getElementById("picOfDrink").src = data.drinks[0].strDrinkThumb + '/preview'
-
-                // ingredient list
-                var drinkIngredients = document.getElementById('ingredientsOfDrink')
-
-                drinkIngredients.innerHTML = null
-
-                for( var i=1; i<=15; i++) {
-                    
-                    if(data.drinks[0]['strIngredient'+ i] != null
-                    && data.drinks[0]['strIngredient'+ i] != "") {
-                        let newListItem = document.createElement('li')
-                        newListItem.innerHTML = data.drinks[0]['strIngredient' + i]
-                        newListItem.innerHTML += ' - ' + data.drinks[0]['strMeasure' + i]
-                        drinkIngredients.append(newListItem)
-                    }
-                }
+                handleDrinkData(data)
             }
             
     });
+}
+
+
+// Filters
+function applyFilters() {
+    if(nonAlcCheckBox.checked) {
+        nonAlcoholic()
+    }
+    if (foodIngredientSearchObj.value != "") {
+        foodSearchByIngredient()
+    }
+    if(alcoholTypeSearchObj.value !="" 
+    && !nonAlcCheckBox.checked) {
+        typeofAlc()
+    }
 }
 
 function foodSearchByIngredient(){
@@ -138,6 +122,51 @@ function foodSearchByIngredient(){
     .catch(error => inputError())
 }
 
+function typeofAlc(){
+        
+    let drinkType = alcoholTypeSearchObj.value
+    drinkType = drinkType.split(' ').join('+')
+
+    fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${drinkType}`)       
+        .then(res => res.json())
+        .then(data => {
+            let random = getRandomInt(0, data.drinks.length - 1)
+            console.log(data.drinks[random])
+
+            let drinkID = data.drinks[random].idDrink
+            fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkID}`)
+            .then(res => res.json())
+            .then(data => {
+                handleDrinkData(data)
+            })
+        
+            
+
+        })
+        .catch(error => inputError())
+
+}
+
+function nonAlcoholic(){
+    
+    fetch('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic')       
+        .then(res => res.json())
+        .then(data => {
+            let random = getRandomInt(0, data.drinks.length - 1)
+            console.log(data.drinks[random])
+
+            let drinkID = data.drinks[random].idDrink
+            fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkID}`)
+            .then(res => res.json())
+            .then(data => {
+                handleDrinkData(data)
+            })
+        })
+
+}
+
+
+// Data Handling  
 function handleMealData(data) {
     console.log(data.meals[0])
     // food name picture and instructions 
@@ -159,96 +188,38 @@ function handleMealData(data) {
     }
 }
 
+function handleDrinkData(data){
+    // drink name picture and instructions
+    console.log(data.drinks[0])
+    document.getElementById("nameOfDrink").innerHTML = data.drinks[0].strDrink
+    document.getElementById("directions").innerHTML = data.drinks[0].strInstructions
+    document.getElementById("picOfDrink").src = data.drinks[0].strDrinkThumb + '/preview'
+
+    // ingredient list
+    var drinkIngredients = document.getElementById('ingredientsOfDrink')
+
+    drinkIngredients.innerHTML = null
+
+    for( var i=1; i<=15; i++) {
+        
+        if(data.drinks[0]['strIngredient'+ i] != null
+        && data.drinks[0]['strIngredient'+ i] != "") {
+            let newListItem = document.createElement('li')
+            newListItem.innerHTML = data.drinks[0]['strIngredient' + i]
+            newListItem.innerHTML += ' - ' + data.drinks[0]['strMeasure' + i]
+            drinkIngredients.append(newListItem)
+        }
+    }
+}
+
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min);
   }
 
-function nonAlcoholic(){
-    
-        fetch('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic')       
-            .then(res => res.json())
-            .then(data => {
-                let random = getRandomInt(0, data.drinks.length - 1)
-                console.log(data.drinks[random])
 
-                let drinkID = data.drinks[random].idDrink
-                fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkID}`)
-                .then(res => res.json())
-                .then(data => {
-                    
-                    console.log(data.drinks[0])
-                        document.getElementById("nameOfDrink").innerHTML = data.drinks[0].strDrink
-                        document.getElementById("directions").innerHTML = data.drinks[0].strInstructions
-                        document.getElementById("picOfDrink").src = data.drinks[0].strDrinkThumb + '/preview'
-
-                        // ingredient list
-                        var drinkIngredients = document.getElementById('ingredientsOfDrink')
-
-                        drinkIngredients.innerHTML = null
-
-                        for( var i=1; i<=15; i++) {
-                            
-                            if(data.drinks[0]['strIngredient'+ i] != null
-                                && data.drinks[0]['strIngredient'+ i] != "") {
-                            
-                            let newListItem = document.createElement('li')
-                            newListItem.innerHTML = data.drinks[0]['strIngredient' + i]
-                            newListItem.innerHTML += ' - ' + data.drinks[0]['strMeasure' + i]
-                            drinkIngredients.append(newListItem)
-                        }}    
-                })
-            })
-
-    }
-
-    
-function typeofAlc(){
-        
-        let drinkType = alcoholTypeSearchObj.value
-        drinkType = drinkType.split(' ').join('+')
-    
-        fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${drinkType}`)       
-            .then(res => res.json())
-            .then(data => {
-                let random = getRandomInt(0, data.drinks.length - 1)
-                console.log(data.drinks[random])
-
-                let drinkID = data.drinks[random].idDrink
-                fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkID}`)
-                .then(res => res.json())
-                .then(data => {
-                    
-                    console.log(data.drinks[0])
-                        document.getElementById("nameOfDrink").innerHTML = data.drinks[0].strDrink
-                        document.getElementById("directions").innerHTML = data.drinks[0].strInstructions
-                        document.getElementById("picOfDrink").src = data.drinks[0].strDrinkThumb + '/preview'
-
-                        // ingredient list
-                        var drinkIngredients = document.getElementById('ingredientsOfDrink')
-
-                        drinkIngredients.innerHTML = null
-
-                        for( var i=1; i<=15; i++) {
-                            
-                            if(data.drinks[0]['strIngredient'+ i] != null
-                                && data.drinks[0]['strIngredient'+ i] != "") {
-                            
-                            let newListItem = document.createElement('li')
-                            newListItem.innerHTML = data.drinks[0]['strIngredient' + i]
-                            newListItem.innerHTML += ' - ' + data.drinks[0]['strMeasure' + i]
-                            drinkIngredients.append(newListItem)
-                        }}    
-                })
-            
-                
-
-            })
-            .catch(error => inputError())
-
-}
-
+// Error Handling
 function inputError(){
     alert('try again')
 }
