@@ -5,40 +5,87 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Date Night</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- Hero Banner and Images-->
+<div class ="banner">
+    <div class="jumbotron">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <img src="wineglass.png" class="wineGlass">
+        <h1 class="display-1">Date Night</h1>
+        <p class="lead">Discover exciting meal combinations. </p>
+        <br>
+        <br>
+        <hr class="my-2">
+</div>
+        <h3 id="p">Expand your palette while exploring food and drink pairings from the comfort of your home.</h3>
+      </div>
 
-
-
+      <br>
+      <br>
 
     <!-- Buttons & Inputs-->
-    <button id="resetButton">Reset</button>
-    <input id="mainIngredientFood" type="text" placeholder="Main Ingredient">
-    <input id="mainIngredientAlcohol" type="text" placeholder="Type of Alcohol">
-    <input type="checkbox" id="nonAlcoholic"> Non-Alcoholic Drinks</input>
-    <button id="filterButton">Filter</button>
+    <div class= "inputs">
+        <button id="resetButton" type="button" class="btn btn-md btn-danger" >Get Random Pairing</button>
+        <input id="mainIngredientFood" class="foodIng" type="text" placeholder="Main Ingredient" aria-label="Main Ingredient">
+        <input id="mainIngredientAlcohol" class="drinkIng" type="text" placeholder="Type of Alcohol">
+        <input type="checkbox" id="nonAlcoholic" class="checkBox"> Non-Alcoholic Drinks</input>
+        <button id="filterButton" type="button" class="btn btn-primary btn-md">Filter</button>
+    </div>
+    <br>
+    <br>
+    
 
-    <!-- Food -->
-    <h1 id="nameOfFood"></h1>
-    <img id="picOfFood" src="" alt="">
-    <p id="instructionsOfFood"></p>
-    <ul id="ingredientsOfFood"></ul>
 
-    <!-- Dessert -->
-    <h1 id="nameOfDessert"></h1>
-    <img id="picOfDessert" src="" alt="">
-    <p id="instructionsOfDessert"></p>
-    <ul id="ingredientsOfDessert"></ul>
-    
-    <!-- Drinks -->
-    
-    <h1 id="nameOfDrink"></h1>
-    <p id="directions"></p>
-    <img id="picOfDrink" src="" alt="">
-    <ul id="ingredientsOfDrink"></ul>
-    
-    <!-- Checkbox-->
+    <div class="container-fluid">
+        
+        <div class="divider"><span></span><span>Entree</span><span></span></div>
+
+        <div class="row align-items-start">
+            <!-- Food -->
+          <div class="col">
+            <h3 id="nameOfFood"></h3>
+            <img id="picOfFood" src="" alt="">
+            <br>
+            <br>
+            <ul id="ingredientsOfFood"></ul>
+            <p id="instructionsOfFood"></p>
+          </div>
+
+        
+
+            <!-- Dessert -->
+          <div class="container-fluid">
+            <div class="divider"><span></span><span>Dessert</span><span></span></div>
+            <h3 id="nameOfDessert"></h3>
+            <img id="picOfDessert" src="" alt="">
+            <br>
+            <br>
+            <ul id="ingredientsOfDessert"></ul>
+            <p id="instructionsOfDessert"></p>
+          </div>
+
+          <div class="divider"><span></span><span>Libation</span><span></span></div>
+
+            <!-- Drinks -->
+          <div class="container-fluid">
+            <h3 id="nameOfDrink"></h3>
+            <img id="picOfDrink" src="" alt="">
+            <br>
+            <br>
+            <ul id="ingredientsOfDrink"></ul>
+            <p id="directions"></p>
+          </div>
+        </div>
+      
     
 
 
