@@ -203,5 +203,5 @@ function getRandomInt(min, max) {
 
 // Error Handling
 function inputError(){
-    alert('try again')
+   alert('Invalid Input')
 }
