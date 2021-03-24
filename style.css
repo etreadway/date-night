@@ -1,4 +1,8 @@
-
+.meal-pic {
+    max-height: 40vh;
+    max-width: 40vw;
+    border-radius: 5%;
+}
 
 
 .jumbotron {
