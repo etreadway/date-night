@@ -33,13 +33,41 @@
       <br>
 
     <!-- Buttons & Inputs-->
-    <div class= "inputs">
-        <button id="resetButton" type="button" class="btn btn-md btn-danger" >Get Random Pairing</button>
-        <input id="mainIngredientFood" class="foodIng" type="text" placeholder="Main Ingredient" aria-label="Main Ingredient">
-        <input id="mainIngredientAlcohol" class="drinkIng" type="text" placeholder="Type of Alcohol">
-        <input type="checkbox" id="nonAlcoholic" class="checkBox"> Non-Alcoholic Drinks</input>
-        <button id="filterButton" type="button" class="btn btn-primary btn-md">Filter</button>
-    </div>
+    <form class="row row-cols-lg-auto g-3 align-items-center d-flex justify-content-center">
+        <!-- get random pairing -->
+        <div class="col-12">
+            <button id="resetButton" type="submit" class="btn btn-danger">Get Random Pairing</button>
+          </div>
+        <!-- main ingredient -->
+        <div class="col-12">
+          <label class="visually-hidden" for="inlineFormInputGroupUsername">Username</label>
+          <div class="input-group">
+            <div class="input-group-text">Main Ingredient</div>
+            <input id="mainIngredientFood" type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="beef, chicken, etc...">
+          </div>
+        </div>
+        <!-- type of alcohol -->
+        <div class="col-12">
+            <label class="visually-hidden" for="inlineFormInputGroupUsername">Username</label>
+            <div class="input-group">
+              <div class="input-group-text">Type of Alcohol</div>
+              <input id="mainIngredientAlcohol" type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="gin, vodka, etc...">
+            </div>
+          </div>
+        <!-- non-alcoholic -->
+        <div class="col-12">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="inlineFormCheck nonAlcoholic">
+            <label class="form-check-label" for="inlineFormCheck">
+              Non-Alcoholic Drinks
+            </label>
+          </div>
+        </div>
+        <!-- filter button -->
+        <div class="col-12">
+          <button id="filterButton" type="submit" class="btn btn-primary">filter</button>
+        </div>
+      </form>
     <br>
     <br>
     
@@ -51,7 +79,7 @@
 
         <div class="row align-items-start">
             <!-- Food -->
-          <div class="col">
+          <div class="container-fluid">
             <h3 id="nameOfFood"></h3>
             <img id="picOfFood" src="" alt="">
             <br>
