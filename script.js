@@ -52,7 +52,7 @@ function getRandomDessert(){
         .then(res => res.json())
         .then(data => {
             document.getElementById('nameOfDessert').innerHTML = data.meals[0].strMeal
-            document.getElementById('picOfDessert').src = data.meals[0].strMealThumb + '/preview'
+            document.getElementById('picOfDessert').src = data.meals[0].strMealThumb
             document.getElementById('instructionsOfDessert').innerHTML = data.meals[0].strInstructions
             // ingredient list
             var foodIngredientList = document.getElementById('ingredientsOfDessert')
@@ -155,7 +155,7 @@ function nonAlcoholic(){
 function handleMealData(data) {
     // food name picture and instructions 
     document.getElementById('nameOfFood').innerHTML = data.meals[0].strMeal
-    document.getElementById('picOfFood').src = data.meals[0].strMealThumb + '/preview'
+    document.getElementById('picOfFood').src = data.meals[0].strMealThumb
     document.getElementById('instructionsOfFood').innerHTML = data.meals[0].strInstructions
     // ingredient list
     var foodIngredientList = document.getElementById('ingredientsOfFood')
@@ -176,7 +176,7 @@ function handleDrinkData(data){
     // drink name picture and instructions
     document.getElementById("nameOfDrink").innerHTML = data.drinks[0].strDrink
     document.getElementById("directions").innerHTML = data.drinks[0].strInstructions
-    document.getElementById("picOfDrink").src = data.drinks[0].strDrinkThumb + '/preview'
+    document.getElementById("picOfDrink").src = data.drinks[0].strDrinkThumb
 
     // ingredient list
     var drinkIngredients = document.getElementById('ingredientsOfDrink')
