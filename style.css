@@ -37,16 +37,15 @@
 }
 
 .inputs {
-    margin-left: 15vw;
+    margin-left: 5vw;
+    margin-right: 5vw;
 }
 
 .container-fluid {
     margin-left: 20px;
 }
 
-#filterButton {
-    margin-left: 20px
-}
+
 
 
 .divider {								/* minor cosmetics */
