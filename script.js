@@ -15,6 +15,12 @@ var nonAlcCheckBox = document.getElementById("nonAlcoholic")
 // filter search button
 var filterButton = document.getElementById('filterButton')
 filterButton.addEventListener('click', applyFilters)
+// warning message
+var dangerObj = document.getElementById('danger')
+var dangerObjClose = document.getElementById('danger-close')
+dangerObjClose.addEventListener('click', function(){
+    dangerObj.style.display = 'none'
+})
 
 // ---Functions---
 
@@ -208,5 +214,5 @@ function getRandomInt(min, max) {
 
 // Error Handling
 function inputError(){
-   alert('Invalid Input')
+    dangerObj.style.display = 'block'
 }
