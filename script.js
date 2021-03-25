@@ -110,7 +110,12 @@ function foodSearchByIngredient(){
         fetch('https://www.themealdb.com/api/json/v1/1/lookup.php?i=' + idMeal)
         .then(res => res.json())
         .then(data => {
-            handleMealData(data)
+             // makes sure meal is not dessert
+            if (data.meals[0].strCategory == 'Dessert'){
+                foodSearchByIngredient()
+            }else{
+                handleMealData(data)
+            }
         })
     })
     .catch(error => inputError())
