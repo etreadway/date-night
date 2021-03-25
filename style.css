@@ -1,4 +1,8 @@
-
+.meal-pic {
+    max-height: 40vh;
+    max-width: 40vw;
+    border-radius: 5%;
+}
 
 
 .jumbotron {
@@ -33,16 +37,16 @@
 }
 
 .inputs {
-    margin-left: 15vw;
+    margin-left: 5vw;
+    margin-right: 5vw;
 }
 
 .container-fluid {
-    margin-left: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
-#filterButton {
-    margin-left: 20px
-}
+
 
 
 .divider {								/* minor cosmetics */
