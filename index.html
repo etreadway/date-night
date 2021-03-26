@@ -77,15 +77,19 @@
         <button id="filterButton" type="button" class="btn btn-primary">filter</button>
       </div>
     </form>
+    <br>
+    <div id="danger-alert" class="alert alert-danger alert-dismissible inputs" role="alert" style="display: none;">
+      <strong>Oops!</strong> You must use a valid ingredient/type of alcohol.
+      <button id="danger-close-button" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
   <br>
   <br>
   
   <!-- displayed info -->
 
   <div class="container">
-    <div class="row">
       <!-- Entree -->
-      <div class="col-sm">
+      <div class="row">
         <div class="container-fluid">
           <div class="divider"><span></span><span>Entree</span><span></span></div>
           <h3 id="nameOfFood" style="text-align: center;"></h3>
@@ -111,7 +115,7 @@
         </div>
       </div>
       <!-- Drinks -->
-      <div class="col-sm">
+      <div class="row">
         <div class="container-fluid">
           <div class="divider"><span></span><span>Libation</span><span></span></div>
           <h3 id="nameOfDrink" style="text-align: center;"></h3>
@@ -138,7 +142,7 @@
         </div>
       </div>
       <!-- Dessert -->
-      <div class="col-sm">
+      <div class="row">
         <div class="container-fluid">
           <div class="divider"><span></span><span>Dessert</span><span></span></div>
           <h3 id="nameOfDessert" style="text-align: center;"></h3>
@@ -164,7 +168,7 @@
         </div>
       </div>
 
-    </div>
+    
   </div>
 
 
