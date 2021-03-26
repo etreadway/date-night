@@ -1,6 +1,6 @@
 .meal-pic {
-    max-height: 40vh;
-    max-width: 40vw;
+    max-height: 30vh;
+    max-width: 30vw;
     border-radius: 5%;
 }
 
@@ -93,7 +93,6 @@
     text-align: center;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: smaller;
-
 }
 
 .footer p {
