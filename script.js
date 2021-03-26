@@ -15,12 +15,6 @@ var nonAlcCheckBox = document.getElementById("nonAlcoholic")
 // filter search button
 var filterButton = document.getElementById('filterButton')
 filterButton.addEventListener('click', applyFilters)
-// warning message
-var dangerObj = document.getElementById('danger')
-var dangerObjClose = document.getElementById('danger-close')
-dangerObjClose.addEventListener('click', function(){
-    dangerObj.style.display = 'none'
-})
 
 // ---Functions---
 
@@ -58,7 +52,7 @@ function getRandomDessert(){
         .then(res => res.json())
         .then(data => {
             document.getElementById('nameOfDessert').innerHTML = data.meals[0].strMeal
-            document.getElementById('picOfDessert').src = data.meals[0].strMealThumb + '/preview'
+            document.getElementById('picOfDessert').src = data.meals[0].strMealThumb
             document.getElementById('instructionsOfDessert').innerHTML = data.meals[0].strInstructions
             // ingredient list
             var foodIngredientList = document.getElementById('ingredientsOfDessert')
@@ -116,7 +110,12 @@ function foodSearchByIngredient(){
         fetch('https://www.themealdb.com/api/json/v1/1/lookup.php?i=' + idMeal)
         .then(res => res.json())
         .then(data => {
-            handleMealData(data)
+             // makes sure meal is not dessert
+            if (data.meals[0].strCategory == 'Dessert'){
+                foodSearchByIngredient()
+            }else{
+                handleMealData(data)
+            }
         })
     })
     .catch(error => inputError())
@@ -161,7 +160,7 @@ function nonAlcoholic(){
 function handleMealData(data) {
     // food name picture and instructions 
     document.getElementById('nameOfFood').innerHTML = data.meals[0].strMeal
-    document.getElementById('picOfFood').src = data.meals[0].strMealThumb + '/preview'
+    document.getElementById('picOfFood').src = data.meals[0].strMealThumb
     document.getElementById('instructionsOfFood').innerHTML = data.meals[0].strInstructions
     // ingredient list
     var foodIngredientList = document.getElementById('ingredientsOfFood')
@@ -182,7 +181,7 @@ function handleDrinkData(data){
     // drink name picture and instructions
     document.getElementById("nameOfDrink").innerHTML = data.drinks[0].strDrink
     document.getElementById("directions").innerHTML = data.drinks[0].strInstructions
-    document.getElementById("picOfDrink").src = data.drinks[0].strDrinkThumb + '/preview'
+    document.getElementById("picOfDrink").src = data.drinks[0].strDrinkThumb
 
     // ingredient list
     var drinkIngredients = document.getElementById('ingredientsOfDrink')
@@ -209,5 +208,5 @@ function getRandomInt(min, max) {
 
 // Error Handling
 function inputError(){
-    dangerObj.style.display = 'block'
+   alert('Invalid Input')
 }
